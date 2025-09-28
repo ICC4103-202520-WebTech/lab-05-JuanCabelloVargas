@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_28_155324) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_28_155727) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -24,5 +24,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_28_155324) do
     t.datetime "updated_at", null: false
     t.index ["document_id"], name: "index_guests_on_document_id", unique: true
     t.index ["email"], name: "index_guests_on_email", unique: true
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "number", null: false
+    t.integer "room_type", null: false
+    t.integer "status", null: false
+    t.integer "price", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["number"], name: "index_rooms_on_number", unique: true
   end
 end
