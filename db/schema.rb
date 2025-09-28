@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_28_162823) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_28_163105) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -24,6 +24,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_28_162823) do
     t.datetime "updated_at", null: false
     t.index ["document_id"], name: "index_guests_on_document_id", unique: true
     t.index ["email"], name: "index_guests_on_email", unique: true
+  end
+
+  create_table "invoices_tables", force: :cascade do |t|
+    t.bigint "reservation_id", null: false
+    t.integer "nights_subtotal", null: false
+    t.integer "servides_subtotal"
+    t.integer "tax", null: false
+    t.integer "total", null: false
+    t.datetime "issued_at"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reservation_id"], name: "index_invoices_tables_on_reservation_id"
   end
 
   create_table "reservations", force: :cascade do |t|
@@ -73,6 +86,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_28_162823) do
     t.index ["name"], name: "index_services_on_name", unique: true
   end
 
+  add_foreign_key "invoices_tables", "reservations"
   add_foreign_key "reservations", "guests"
   add_foreign_key "reservations", "rooms"
   add_foreign_key "service_usages_tables", "reservations"
