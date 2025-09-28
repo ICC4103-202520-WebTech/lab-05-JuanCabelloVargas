@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_28_162131) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_28_162823) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -52,6 +52,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_28_162131) do
     t.index ["number"], name: "index_rooms_on_number", unique: true
   end
 
+  create_table "service_usages_tables", force: :cascade do |t|
+    t.bigint "reservation_id", null: false
+    t.bigint "service_id", null: false
+    t.integer "quantity", null: false
+    t.datetime "used_at", null: false
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reservation_id"], name: "index_service_usages_tables_on_reservation_id"
+    t.index ["service_id"], name: "index_service_usages_tables_on_service_id"
+  end
+
   create_table "services", force: :cascade do |t|
     t.string "name", null: false
     t.boolean "is_active", default: true, null: false
@@ -63,4 +75,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_28_162131) do
 
   add_foreign_key "reservations", "guests"
   add_foreign_key "reservations", "rooms"
+  add_foreign_key "service_usages_tables", "reservations"
+  add_foreign_key "service_usages_tables", "services"
 end
