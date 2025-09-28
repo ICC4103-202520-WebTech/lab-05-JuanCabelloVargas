@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_28_155727) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_28_160105) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -26,6 +26,22 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_28_155727) do
     t.index ["email"], name: "index_guests_on_email", unique: true
   end
 
+  create_table "reservations", force: :cascade do |t|
+    t.string "code", null: false
+    t.bigint "guest_id", null: false
+    t.bigint "room_id", null: false
+    t.date "check_in", null: false
+    t.date "check_out", null: false
+    t.integer "status", null: false
+    t.integer "adults", null: false
+    t.integer "children"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_reservations_on_code", unique: true
+    t.index ["guest_id"], name: "index_reservations_on_guest_id"
+    t.index ["room_id"], name: "index_reservations_on_room_id"
+  end
+
   create_table "rooms", force: :cascade do |t|
     t.string "number", null: false
     t.integer "room_type", null: false
@@ -35,4 +51,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_28_155727) do
     t.datetime "updated_at", null: false
     t.index ["number"], name: "index_rooms_on_number", unique: true
   end
+
+  add_foreign_key "reservations", "guests"
+  add_foreign_key "reservations", "rooms"
 end
