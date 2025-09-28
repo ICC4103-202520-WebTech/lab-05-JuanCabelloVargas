@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_28_164543) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_28_170411) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -29,7 +29,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_28_164543) do
   create_table "invoices", force: :cascade do |t|
     t.bigint "reservation_id", null: false
     t.integer "nights_subtotal", null: false
-    t.integer "servides_subtotal"
+    t.integer "services_subtotal"
     t.integer "tax", null: false
     t.integer "total", null: false
     t.datetime "issued_at"
